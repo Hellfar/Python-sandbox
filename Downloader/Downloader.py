@@ -3,14 +3,20 @@
 import requests
 import re
 import os.path
+import sys
 
-work = "toDownload.txt"
+if len(sys.argv) > 1:
+	work = sys.argv[1]
+else:
+	work = "toDownload.txt"
+
 fo = open(work, "r")
 for line in fo:
 	print "url: %s" % (line)
 	fl = requests.get(line, stream=True)
-	filename = os.path.dirname(work) + re.findall("filename=\"(\S+)\"", fl.headers['Content-Disposition'])[0]
+	filename = os.path.dirname(work) + "/" + re.findall("filename=\"(\S+)\"", fl.headers['Content-Disposition'])[0]
 	os.path.isfile(filename)
+	print "in file: %s" % (filename)
 	with open (filename, "wb") as Output:
 	  for chunk in fl.iter_content(chunk_size=1024):
 		if chunk:
