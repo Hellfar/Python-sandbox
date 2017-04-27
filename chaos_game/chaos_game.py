@@ -49,13 +49,15 @@ for o, a in optlist:
             raise
     elif o in ('-i', '--iterations'):
         iterations = a
-print str(number_of_seeds)
-print str(ratio)
-print str(iterations)
+# print str(number_of_seeds)
+# print str(ratio)
+# print str(iterations)
 
 # format options and complete missing options
 seeds = [[int(y) for y in x.split(':')] for x in args[0:-1]]
 first_point = [[int(y) for y in x.split(':')] for x in args[-1:]]
+if len(first_point):
+    first_point = first_point[0]
 # print str(seeds)
 # print str(first_point)
 while len(seeds) < number_of_seeds:
