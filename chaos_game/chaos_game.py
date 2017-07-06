@@ -50,7 +50,7 @@ for o, a in optlist:
         else:
             raise
     elif o in ('-i', '--iterations'):
-        iterations = a
+        iterations = int(a)
     elif o in ('-c', '--convex'):
         convex = True
 # print str(number_of_seeds)
