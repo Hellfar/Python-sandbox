@@ -14,8 +14,8 @@ import turtle
 colors=['red', 'green', 'blue', 'purple', 'yellow', 'orange', 'gray', 'white', 'pink', 'cyan', 'khaki', 'brown']
 
 # init Turtle
-w=turtle.Screen()
-t=turtle.Pen()
+w = turtle.Screen()
+t = turtle.Pen()
 turtle.bgcolor('black')
 t.pensize(1)
 t.penup()
