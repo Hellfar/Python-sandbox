@@ -26,6 +26,7 @@ width, height = w.screensize()
 
 # n: for number of seeds.
 # r: for the ratio about how much to move.
+# i: for number of iterations.
 # c: when new points are needed to be generated, they'll be part of a convex polygon.
 # remaining args will be for the firsts the points representing the seeds and
 # the last one be the first random point (coords separated by default by one of this ',/-:', coords_separators).
