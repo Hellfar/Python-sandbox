@@ -7,6 +7,7 @@ import sys
 import json
 import getopt
 import random
+import re
 
 import turtle
 
@@ -27,7 +28,7 @@ width, height = w.screensize()
 # r: for the ratio about how much to move.
 # c: when new points are needed to be generated, they'll be part of a convex polygon.
 # remaining args will be for the firsts the points representing the seeds and
-# the last one be the first random point (coords separated by ':').
+# the last one be the first random point (coords separated by default by one of this ',/-:', coords_separators).
 # Every missing point will created randomly according to the previous parameters.
 # If only one point is given this will be the first point to draw and not the seeds.
 optlist, args = getopt.getopt(sys.argv[1:], 'n:i:r:c')
@@ -37,6 +38,7 @@ optlist, args = getopt.getopt(sys.argv[1:], 'n:i:r:c')
 number_of_seeds = 3
 ratio = float(1)/float(2)
 iterations = 360
+coords_separators = ',/-:'
 convex = False
 for o, a in optlist:
     if o in ('-n', '--number_of_seeds'):
@@ -58,9 +60,18 @@ for o, a in optlist:
 # print str(iterations)
 # print str(convex)
 
+def create_coord(s, splitter):
+    m = re.match(r"(?P<x>-?\d+)[{0}](?P<y>-?\d+)".format(splitter), s)
+    if (m):
+        return ([int(e) for e in m.group('x', 'y')])
+    else:
+        return ([random.randint(-width, width), random.randint(-height, height)])
+
 # format options and complete missing options
-seeds = [[int(y) for y in x.split(':')] for x in args[0:-1]]
-first_point = [[int(y) for y in x.split(':')] for x in args[-1:]]
+seeds = [create_coord(e, coords_separators) for e in args[0:-1]]
+first_point = [create_coord(e, coords_separators) for e in args[-1:]]
+# seeds = [[int(y) for y in x.split(coords_separators)] for x in args[0:-1]]
+# first_point = [[int(y) for y in x.split(coords_separators)] for x in args[-1:]]
 if len(first_point):
     first_point = first_point[0]
 # print str(seeds)
