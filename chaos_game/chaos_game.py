@@ -25,17 +25,19 @@ width, height = w.screensize()
 
 # n: for number of seeds.
 # r: for the ratio about how much to move.
+# c: when new points are needed to be generated, they'll be part of a convex polygon.
 # remaining args will be for the firsts the points representing the seeds and
 # the last one be the first random point (coords separated by ':').
 # Every missing point will created randomly according to the previous parameters.
 # If only one point is given this will be the first point to draw and not the seeds.
-optlist, args = getopt.getopt(sys.argv[1:], 'n:i:r:')
+optlist, args = getopt.getopt(sys.argv[1:], 'n:i:r:c')
 # print str(optlist)
 # print str(args)
 # init options
 number_of_seeds = 3
 ratio = float(1)/float(2)
 iterations = 360
+convex = False
 for o, a in optlist:
     if o in ('-n', '--number_of_seeds'):
         number_of_seeds = int(a)
@@ -49,9 +51,12 @@ for o, a in optlist:
             raise
     elif o in ('-i', '--iterations'):
         iterations = a
+    elif o in ('-c', '--convex'):
+        convex = True
 # print str(number_of_seeds)
 # print str(ratio)
 # print str(iterations)
+# print str(convex)
 
 # format options and complete missing options
 seeds = [[int(y) for y in x.split(':')] for x in args[0:-1]]
